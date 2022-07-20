@@ -8,7 +8,7 @@ const ProfileCard = () => {
 
   useEffect(() => {
     const getUserInfo = async () => {
-      const url = `http://localhost:3000/api/users/1`;
+      const url = `http://localhost:3000/api/skills/soft`;
       const { data } = await axios.get(url);
       setSkillInfo(data);
     };
