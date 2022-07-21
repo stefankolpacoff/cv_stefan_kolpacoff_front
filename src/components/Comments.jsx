@@ -23,11 +23,43 @@ const comments = () => {
       progress: undefined,
     });
 
-  const postForm = async (e) => {
+  // const postForm = async (e) => {
+  //   try {
+  //     e.preventDefault();
+  //     await axios.post(
+  //       `http://localhost:3000/api/comments`,
+
+  //       {
+  //         firstName: userFirstName,
+  //         lastName: userLastName,
+  //         email: userEmail,
+  //         phoneNumber: userPhone,
+  //         subject: userSubject,
+  //         comment: userComment,
+  //       },
+  //       {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //       }
+  //     );
+  //     setUserFirstName("");
+  //     setUserLastName("");
+  //     setUserEmail("");
+  //     setUserPhone("");
+  //     setUserSubject("");
+  //     setUserComment("");
+  //     notifySuccess();
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
+  const sendForm = async (e) => {
     try {
       e.preventDefault();
       await axios.post(
-        `http://localhost:3000/api/comments`,
+        `http://localhost:3000/api/sendEmail`,
+
         {
           firstName: userFirstName,
           lastName: userLastName,
@@ -60,7 +92,7 @@ const comments = () => {
       </h1>
       <form
         onSubmit={(e) => {
-          postForm(e);
+          sendForm(e);
         }}
         className="w-8/12 m-auto text-center"
       >
