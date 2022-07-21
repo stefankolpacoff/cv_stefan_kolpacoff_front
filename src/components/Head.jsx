@@ -10,13 +10,13 @@ const Head = () => {
       const { data } = await axios.get(url);
       setUserInfo(data);
     };
-    console.log(userInfo?.lastName);
+
     getUserInfo();
   }, []);
 
   return (
     <div>
-      <div className="relative w-2/3 pl-8 margin-auto">
+      <div className="relative w-2/3 pl-8 margin-auto text-shadow-md">
         <h1 className="top-0 m-auto text-xl text-center backdrop-blur-sm font-title">
           {userInfo?.firstName} {userInfo?.lastName}
         </h1>

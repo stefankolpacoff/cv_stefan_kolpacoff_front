@@ -1,21 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import skills from "../../skillsArray";
-import hiking from "../../hobbiesArray";
 
 const ProfileCard = () => {
-  const [skillInfo, setSkillInfo] = useState();
-
-  useEffect(() => {
-    const getUserInfo = async () => {
-      const url = `http://localhost:3000/api/users/1`;
-      const { data } = await axios.get(url);
-      setSkillInfo(data);
-    };
-    console.log(skillInfo?.title);
-    getUserInfo();
-  }, []);
-
+  // GET USER
   const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
@@ -24,11 +11,46 @@ const ProfileCard = () => {
       const { data } = await axios.get(url);
       setUserInfo(data);
     };
-    console.log(userInfo?.lastName);
+
     getUserInfo();
   }, []);
+
+  // GET TECH SKILLS
+  const [techSkillInfo, setTechSkillInfo] = useState();
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const url = `http://localhost:3000/api/skills/tech`;
+      const { data } = await axios.get(url);
+      setTechSkillInfo(data);
+    };
+
+    getUserInfo();
+  }, []);
+  // GET SOFT SKILLS
+  const [softSkillInfo, setSoftSkillInfo] = useState();
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const url = `http://localhost:3000/api/skills/soft`;
+      const { data } = await axios.get(url);
+      setSoftSkillInfo(data);
+    };
+
+    getUserInfo();
+  }, []);
+
+  // GET HOBBIES
+  const [hobbiesInfo, setHobbiesInfo] = useState();
+  useEffect(() => {
+    const getHobbiesInfo = async () => {
+      const url = `http://localhost:3000/api/hobbies`;
+      const { data } = await axios.get(url);
+      setHobbiesInfo(data);
+    };
+    console.log(userInfo && userInfo);
+    getHobbiesInfo();
+  }, []);
   return (
-    <div className="">
+    <div className="bg-cover text-shadow-md">
       <div className="absolute w-1/4 border-4 shadow-lg top-28 white right-5 bg-slate-800">
         <div className="w-3/4 m-auto ">
           <img
@@ -39,61 +61,58 @@ const ProfileCard = () => {
         </div>
         <div className="pt-4 text-center">
           <p>
-            {userInfo?.streetAddress}
-            {userInfo?.city}
+            {userInfo?.street} - {userInfo?.city}
           </p>
           <p>{userInfo?.phoneNumber}</p>
           <p>{userInfo?.email}</p>
           <p className="pt-2">100% remote possible</p>
         </div>
-        <h1 className="sticky top-0 w-5/6 m-auto mt-20 text-center backdrop-blur-sm justify-evenly text-medium ">
-          Competences
+        <h1 className="sticky top-0 w-5/6 m-auto mt-20 mb-10 text-center backdrop-blur-sm justify-evenly text-medium ">
+          Compétences
         </h1>
-        <div className="flex flex-wrap justify-evenly ">
-          {skills.map(({ name, img, id }) => (
-            <div key={id} className="flex flex-col w-1/5 m-1 r-2 text-7/1">
-              <p className="text-center ">{name}</p>
-              <img
-                className="self-end object-scale-down h-full"
-                src={img}
-                alt="img"
-              />
-            </div>
-          ))}
+        <div className="flex flex-wrap justify-evenly">
+          {techSkillInfo &&
+            techSkillInfo.map(({ id, title, image }) => (
+              <div
+                key={id}
+                className="flex flex-col w-1/5 m-2 text-center r-2 text-7/1"
+              >
+                <p className=" text-small">{title}</p>
+                <img
+                  className="self-end object-scale-down h-full"
+                  src={image}
+                  alt="img"
+                />
+              </div>
+            ))}
         </div>
         <h1 className="sticky top-0 w-5/6 m-auto mt-20 text-center backdrop-blur-sm justify-evenly text-medium ">
           Soft Skills
         </h1>
-        <div className="flex justify-center space-x-5 ">
-          <ul>
-            <li>INNOVANT</li>
-            <li>FORCE DE PROPOSITION</li>
-            <li>CURIEUX</li>
-          </ul>
-          <ul>
-            <li>COMMUNICATION</li>
-            <li>TEAMWORK</li>
-            <li>AUTONOMIE</li>
-          </ul>
+        <div className="flex flex-col justify-between p-5">
+          {softSkillInfo &&
+            softSkillInfo.map(({ id, title }) => (
+              <ul key={id}>
+                <li className="p-5 text-xs">{title}</li>
+              </ul>
+            ))}
         </div>
 
         <h1 className="sticky top-0 w-5/6 m-auto mt-20 text-center backdrop-blur-sm justify-evenly text-medium ">
           Loisirs
         </h1>
         <div className="flex flex-wrap justify-evenly ">
-          {hiking.map(({ id, name, img }) => (
-            <div
-              key={id}
-              className="w-1/5 m-2 text-center 1/4 r-2 white text-7/1"
-            >
-              <p className="text-center align-middle">{name}</p>
-              <img
-                className="mt-5 mb-5 bg-white border-2 rounded-full "
-                src={img}
-                alt="img"
-              />
-            </div>
-          ))}
+          {hobbiesInfo &&
+            hobbiesInfo.map(({ id, title, image }) => (
+              <div key={id} className="w-1/5 m-2 ">
+                <p className="text-xs text-center align-middle">{title}</p>
+                <img
+                  className="mt-5 mb-5 bg-white border-2 rounded-full "
+                  src={image}
+                  alt="img"
+                />
+              </div>
+            ))}
         </div>
       </div>
     </div>
