@@ -12,12 +12,11 @@ const Education = () => {
     };
 
     getUserInfo();
-    console.log(educInfo && educInfo);
   }, []);
 
   return (
-    <div className="pl-8">
-      <h1 className="sticky top-0 w-2/3 m-2 mt-10 mb-10 text-3xl text-center border-b-2 backdrop-blur-sm text-large s">
+    <div className="pl-8 text-shadow-md">
+      <h1 className="sticky top-0 w-2/3 mx-2 my-6 mb-20 text-3xl text-center border-b-2 backdrop-blur-sm text-large s">
         Education
       </h1>
       {educInfo &&
